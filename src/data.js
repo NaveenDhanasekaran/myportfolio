@@ -12,8 +12,11 @@ export const profile = {
     'Alongside that I take on freelance work, usually from the first prototype through to a deployed product: e-commerce stores, a trading platform, a healthcare portal and corporate sites, often with a chatbot or machine learning component. Earlier, I spent two years with The Term Time in the UK building computer vision and NLP models for education.',
   ],
   stack: ['Python', 'React', 'Node.js', 'Flask', 'FastAPI', 'Hive', 'Vertica', 'PostgreSQL', 'Google Gemini', 'LLM function calling', 'Computer vision', 'Flutter'],
-  // TODO: replace with your real email address
-  email: 'naveen@example.com',
+  email: 'naveen16043@gmail.com',
+  phone: '+91 91761 86062',
+  // WhatsApp number in international format, digits only
+  whatsapp: '919176186062',
+  whatsappMessage: 'Hi Naveen, I saw your portfolio and would like to discuss a project.',
 };
 
 export const navItems = [

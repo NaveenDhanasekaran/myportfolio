@@ -3,6 +3,7 @@ import './App.css';
 import { profile, navItems } from './data';
 import Home from './pages/Home';
 import ProjectPage from './pages/ProjectPage';
+import { WhatsAppFloat } from './components/WhatsApp';
 
 // Minimal hash router: "#/" is the home page, "#/matrimony/<slug>" is a project page.
 // Hash routing works on any static host without server rewrites.
@@ -81,11 +82,17 @@ function App() {
           <span>
             &copy; {new Date().getFullYear()} {profile.name}
           </span>
+          <span className="footer-contact">
+            <a href={`mailto:${profile.email}`}>{profile.email}</a>
+            <a href={`tel:${profile.phone.replace(/\s/g, '')}`}>{profile.phone}</a>
+          </span>
           <a href="#/" onClick={(e) => goTo(e, 'top')}>
             Back to top
           </a>
         </div>
       </footer>
+
+      <WhatsAppFloat />
     </div>
   );
 }

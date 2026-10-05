@@ -928,3 +928,72 @@ a {
 .case-card.no-link:hover {
   background: var(--paper);
 }
+
+/* Contact and WhatsApp */
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.contact-actions .button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.wa-icon {
+  flex-shrink: 0;
+}
+
+.footer-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.wa-float {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 200;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.1rem;
+  border-radius: 999px;
+  background: #1f8a4c;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(21, 23, 28, 0.18);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.wa-float:hover {
+  background: #176b3a;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .wa-float {
+    right: 16px;
+    bottom: 16px;
+    padding: 0.8rem;
+  }
+
+  .wa-float span {
+    display: none;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+  }
+}
+
+/* Keep the footer clear of the floating WhatsApp button */
+.site-footer {
+  padding-bottom: 88px;
+}

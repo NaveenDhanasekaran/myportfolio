@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Section, { fadeUp, pad, ArrowIcon } from '../components/Section';
 import { profile, services, experience, products, websites } from '../data';
 import { company, matrimonyProjects } from '../matrimonyProjects';
+import { whatsappLink, WhatsAppIcon } from '../components/WhatsApp';
 
 // The Work section groups everything into one place, with a tab per group.
 const workGroups = [
@@ -53,7 +54,7 @@ const workGroups = [
   },
 ];
 
-const totalItems = workGroups.reduce((n, g) => n + g.items.length, 0);
+const totalItems =workGroups.reduce((n, g) => n + g.items.length, 0);
 
 const WorkCard = ({ item, number }) => {
   const Tag = item.href ? motion.a : motion.div;
@@ -223,12 +224,20 @@ function Home({ goTo, scrollTarget, onScrolled }) {
       <Section id="contact" number="05" title="Contact">
         <motion.div {...fadeUp}>
           <p className="contact-lead">
-            Have a project in mind? Send me a few lines about what you are building and I will
-            get back to you.
+            Have a project in mind? Message me on WhatsApp or send an email with a few lines
+            about what you are building, and I will get back to you.
           </p>
           <a className="contact-email" href={`mailto:${profile.email}`}>
             {profile.email}
           </a>
+          <div className="contact-actions">
+            <a className="button button-solid" href={whatsappLink} target="_blank" rel="noopener noreferrer">
+              <WhatsAppIcon /> Message on WhatsApp
+            </a>
+            <a className="button" href={`tel:${profile.phone.replace(/\s/g, '')}`}>
+              Call {profile.phone}
+            </a>
+          </div>
         </motion.div>
       </Section>
     </>
