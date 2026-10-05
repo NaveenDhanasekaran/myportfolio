@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Section, { fadeUp, pad, ArrowIcon } from '../components/Section';
-import { profile, services, experience, products, websites } from '../data';
+import { profile, services, experience, products, websites, faqs } from '../data';
 import { company, matrimonyProjects } from '../matrimonyProjects';
 import { whatsappLink, WhatsAppIcon } from '../components/WhatsApp';
 
@@ -18,7 +18,7 @@ const workGroups = [
       title: p.title,
       category: p.category,
       description: p.summary,
-      href: `#/matrimony/${p.slug}`,
+      href: `/matrimony/${p.slug}`,
       cta: 'Read case study',
     })),
   },
@@ -103,7 +103,7 @@ function Home({ goTo, scrollTarget, onScrolled }) {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            {profile.name} <span className="eyebrow-sep" /> {profile.title}
+            {profile.fullName} <span className="eyebrow-sep" /> {profile.title}
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -125,10 +125,10 @@ function Home({ goTo, scrollTarget, onScrolled }) {
                 {profile.availability}
               </p>
               <div className="button-row">
-                <a className="button button-solid" href="#/" onClick={(e) => goTo(e, 'contact')}>
+                <a className="button button-solid" href="/" onClick={(e) => goTo(e, 'contact')}>
                   Get in touch
                 </a>
-                <a className="button" href="#/" onClick={(e) => goTo(e, 'work')}>
+                <a className="button" href="/" onClick={(e) => goTo(e, 'work')}>
                   View work
                 </a>
               </div>
@@ -162,7 +162,7 @@ function Home({ goTo, scrollTarget, onScrolled }) {
                 {item.link && (
                   <a
                     className="text-link"
-                    href="#/"
+                    href="/"
                     onClick={(e) => {
                       setTab(item.link);
                       goTo(e, 'work');
@@ -221,7 +221,18 @@ function Home({ goTo, scrollTarget, onScrolled }) {
         </div>
       </Section>
 
-      <Section id="contact" number="05" title="Contact">
+      <Section id="faq" number="05" title="Questions">
+        <dl className="faq-list">
+          {faqs.map((item) => (
+            <motion.div key={item.question} className="faq-item" {...fadeUp}>
+              <dt>{item.question}</dt>
+              <dd>{item.answer}</dd>
+            </motion.div>
+          ))}
+        </dl>
+      </Section>
+
+      <Section id="contact" number="06" title="Contact">
         <motion.div {...fadeUp}>
           <p className="contact-lead">
             Have a project in mind? Message me on WhatsApp or send an email with a few lines

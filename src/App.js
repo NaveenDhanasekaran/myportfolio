@@ -4,10 +4,24 @@ import { profile, navItems } from './data';
 import Home from './pages/Home';
 import ProjectPage from './pages/ProjectPage';
 import { WhatsAppFloat } from './components/WhatsApp';
+import Logo from './components/Logo';
+import { setPageMeta } from './seo';
 
-// Minimal hash router: "#/" is the home page, "#/matrimony/<slug>" is a project page.
-// Hash routing works on any static host without server rewrites.
-const getPath = () => window.location.hash.replace(/^#/, '') || '/';
+// Minimal path router: "/" is the home page, "/matrimony/<slug>" is a project page.
+// Real paths (not #hashes) so search engines can index each project page.
+// vercel.json serves the prerendered page for each path.
+const getPath = () => {
+  // Old links used "#/matrimony/<slug>"; move them onto the real path.
+  if (window.location.hash.startsWith('#/')) {
+    window.history.replaceState(null, '', window.location.hash.slice(1) || '/');
+  }
+  return window.location.pathname;
+};
+
+const navigate = (to) => {
+  window.history.pushState(null, '', to);
+  window.dispatchEvent(new PopStateEvent('popstate'));
+};
 
 function App() {
   const [path, setPath] = useState(getPath);
@@ -15,13 +29,39 @@ function App() {
   const [scrollTarget, setScrollTarget] = useState(null);
 
   useEffect(() => {
-    const onHashChange = () => setPath(getPath());
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
+    const onPopState = () => setPath(getPath());
+    window.addEventListener('popstate', onPopState);
+    window.addEventListener('hashchange', onPopState);
+
+    // Handle clicks on internal links ("/..." without a target) without a full page load.
+    const onClick = (e) => {
+      const a = e.target.closest('a');
+      if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
+      const href = a.getAttribute('href');
+      if (!href || !href.startsWith('/') || a.target) return;
+      e.preventDefault();
+      navigate(href);
+    };
+    document.addEventListener('click', onClick);
+    return () => {
+      window.removeEventListener('popstate', onPopState);
+      window.removeEventListener('hashchange', onPopState);
+      document.removeEventListener('click', onClick);
+    };
   }, []);
 
   const projectMatch = path.match(/^\/matrimony\/([\w-]+)/);
   const isHome = !projectMatch;
+
+  useEffect(() => {
+    if (isHome) {
+      setPageMeta({
+        title: `${profile.fullName} | ${profile.title}`,
+        description: profile.description,
+        path: '/',
+      });
+    }
+  }, [isHome]);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -37,7 +77,7 @@ function App() {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     } else {
       setScrollTarget(id);
-      window.location.hash = '/';
+      navigate('/');
     }
   };
 
@@ -45,12 +85,12 @@ function App() {
     <div className="App">
       <header className="site-header">
         <div className="container header-inner">
-          <a className="brand" href="#/" onClick={(e) => goTo(e, 'top')}>
-            {profile.name}
+          <a className="brand" href="/" aria-label={`${profile.fullName}, home`} onClick={(e) => goTo(e, 'top')}>
+            <Logo name={profile.name} />
           </a>
           <nav className={`site-nav ${menuOpen ? 'open' : ''}`} aria-label="Main">
             {navItems.map((item) => (
-              <a key={item.id} href="#/" onClick={(e) => goTo(e, item.id)}>
+              <a key={item.id} href="/" onClick={(e) => goTo(e, item.id)}>
                 {item.label}
               </a>
             ))}
@@ -80,13 +120,13 @@ function App() {
       <footer className="site-footer">
         <div className="container footer-inner">
           <span>
-            &copy; {new Date().getFullYear()} {profile.name}
+            &copy; {new Date().getFullYear()} {profile.fullName}
           </span>
           <span className="footer-contact">
             <a href={`mailto:${profile.email}`}>{profile.email}</a>
             <a href={`tel:${profile.phone.replace(/\s/g, '')}`}>{profile.phone}</a>
           </span>
-          <a href="#/" onClick={(e) => goTo(e, 'top')}>
+          <a href="/" onClick={(e) => goTo(e, 'top')}>
             Back to top
           </a>
         </div>

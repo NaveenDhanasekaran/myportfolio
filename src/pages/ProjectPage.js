@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { fadeUp, pad, ArrowIcon } from '../components/Section';
 import { profile } from '../data';
 import { company, matrimonyProjects } from '../matrimonyProjects';
+import { setPageMeta } from '../seo';
 
 const Block = ({ title, children }) => (
   <motion.section className="case-block" {...fadeUp}>
@@ -16,19 +17,22 @@ function ProjectPage({ slug, goTo }) {
   const project = matrimonyProjects[index];
 
   useEffect(() => {
-    document.title = project
-      ? `${project.title} | ${profile.name}`
-      : `Project not found | ${profile.name}`;
-    return () => {
-      document.title = `${profile.name} | ${profile.title}`;
-    };
+    setPageMeta(
+      project
+        ? {
+            title: `${project.title} | ${company.name} | ${profile.fullName}`,
+            description: project.summary,
+            path: `/matrimony/${project.slug}`,
+          }
+        : { title: `Project not found | ${profile.fullName}`, description: profile.description }
+    );
   }, [project]);
 
   if (!project) {
     return (
       <div className="container case-page">
         <h1 className="case-title">Project not found</h1>
-        <a className="text-link" href="#/" onClick={(e) => goTo(e, 'work')}>
+        <a className="text-link" href="/" onClick={(e) => goTo(e, 'work')}>
           <ArrowIcon direction="left" /> Back to all projects
         </a>
       </div>
@@ -41,7 +45,7 @@ function ProjectPage({ slug, goTo }) {
   return (
     <article className="case-page">
       <div className="container">
-        <a className="text-link back-link" href="#/" onClick={(e) => goTo(e, 'work')}>
+        <a className="text-link back-link" href="/" onClick={(e) => goTo(e, 'work')}>
           <ArrowIcon direction="left" /> All {company.name} projects
         </a>
 
@@ -137,13 +141,13 @@ function ProjectPage({ slug, goTo }) {
         </div>
 
         <nav className="case-pager" aria-label="More projects">
-          <a href={`#/matrimony/${prev.slug}`}>
+          <a href={`/matrimony/${prev.slug}`}>
             <span className="pager-label">
               <ArrowIcon direction="left" /> Previous
             </span>
             <span className="pager-title">{prev.title}</span>
           </a>
-          <a href={`#/matrimony/${next.slug}`} className="pager-next">
+          <a href={`/matrimony/${next.slug}`} className="pager-next">
             <span className="pager-label">
               Next <ArrowIcon />
             </span>

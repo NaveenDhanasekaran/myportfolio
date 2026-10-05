@@ -51,4 +51,18 @@ Vercel builds with `CI=true`, which turns lint warnings into errors. Check a cha
 CI=true npm run build
 ```
 
+## SEO, AEO and GEO
+
+`npm run build` runs `scripts/prerender.js` after the React build. It writes:
+
+- One HTML file per page (`/` and `/matrimony/<slug>`), each with its own title, description, canonical URL, Open Graph and Twitter tags, and JSON-LD structured data: Person, WebSite, ProfilePage, FAQPage and ItemList on the home page; CreativeWork and BreadcrumbList on project pages.
+- The page text inside `#root`, so search engines and AI crawlers that do not run JavaScript can read it.
+- `sitemap.xml`, `robots.txt` (allows search and AI crawlers) and `llms.txt` (a plain summary of the site for AI assistants).
+
+Absolute URLs use Vercel's production domain automatically. To use a different domain, set a `SITE_URL` environment variable in Vercel, for example `https://naveen.dev`.
+
+After the first deploy, submit `https://<your-domain>/sitemap.xml` in [Google Search Console](https://search.google.com/search-console) and [Bing Webmaster Tools](https://www.bing.com/webmasters).
+
+The FAQ answers in `src/data.js` are written to be quoted directly by search and AI answers. Keep them short and factual.
+
 To use a custom domain, open the project in Vercel, go to **Settings > Domains**, add the domain, and set the DNS records Vercel shows at your domain registrar.

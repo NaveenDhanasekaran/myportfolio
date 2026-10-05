@@ -1,6 +1,6 @@
 // Projects built at Matrimony.com (Decision Support System team).
 // `group` drives the filter on the home page; `category` is the label shown on the card.
-// Each entry renders as a card on the home page and as its own detail page at #/matrimony/<slug>.
+// Each entry renders as a card on the home page and as its own detail page at /matrimony/<slug>.
 
 export const company = {
   name: 'Matrimony.com',

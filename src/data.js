@@ -2,7 +2,14 @@
 
 export const profile = {
   name: 'Naveen',
+  fullName: 'Naveen Dhanasekaran',
   title: 'AI Engineer & Full-Stack Developer',
+  // Used in page titles, search snippets and structured data
+  description:
+    'Naveen Dhanasekaran is an AI engineer and full-stack developer in India. He builds LLM applications, data platforms, speech AI and computer vision systems, and websites for businesses in India and Australia.',
+  country: 'India',
+  // Public profiles, listed as sameAs in structured data. Add LinkedIn here.
+  profiles: ['https://github.com/NaveenDhanasekaran'],
   headline: 'I build web applications and the machine learning behind them.',
   intro:
     'AI engineer with 1.3 years in the Decision Support System team at Matrimony.com, and a freelance full-stack developer. I work across data platforms, LLM applications, speech and computer vision, and the React and Python code that puts them in front of people.',
@@ -24,7 +31,43 @@ export const navItems = [
   { id: 'experience', label: 'Experience' },
   { id: 'work', label: 'Work' },
   { id: 'services', label: 'Services' },
+  { id: 'faq', label: 'FAQ' },
   { id: 'contact', label: 'Contact' },
+];
+
+// Shown as a visible FAQ section and published as FAQPage structured data, so search
+// engines and AI assistants can quote direct answers. Keep answers factual and self-contained.
+export const faqs = [
+  {
+    question: 'Who is Naveen Dhanasekaran?',
+    answer:
+      'Naveen Dhanasekaran is an AI engineer and full-stack developer based in India. He spent 1.3 years as an AI Engineer in the Decision Support System team at Matrimony.com and works as a freelance developer for businesses in India and Australia.',
+  },
+  {
+    question: 'What did Naveen build at Matrimony.com?',
+    answer:
+      'At Matrimony.com Naveen built Matrieval, an internal data platform that answers natural-language questions as SQL, along with its Slack and Telegram assistant, an LLM pipeline that analyses telesales call recordings, a DPDP data-protection scanner, a SIM reputation monitor, and fraud, abuse and duplicate-profile detection systems.',
+  },
+  {
+    question: 'What technologies does Naveen work with?',
+    answer:
+      'Python, React, Node.js, Flask and FastAPI for applications; Hive, Vertica, MySQL and PostgreSQL for data; Google Gemini, Claude and other LLMs with function calling for AI features; DeepFace, MediaPipe and YOLO for computer vision; and Flutter with Kotlin for Android.',
+  },
+  {
+    question: 'Is Naveen available for freelance projects?',
+    answer:
+      'Yes. Naveen takes on freelance web development, AI chatbot, automation and machine learning projects, usually from the first prototype through to deployment.',
+  },
+  {
+    question: 'What kind of websites and products has Naveen built for clients?',
+    answer:
+      'Client work includes Intelox Lease, a property management platform for Australian agencies; an export-import CRM; an e-commerce store for children’s clothing; a booking site for a nature retreat; and websites for a chartered accountancy firm, an interior design firm, a fastener manufacturer, a smart lock dealer and an AI services company.',
+  },
+  {
+    question: 'How can I contact Naveen?',
+    answer:
+      'Email naveen16043@gmail.com, call +91 91761 86062, or message the same number on WhatsApp.',
+  },
 ];
 
 export const services = [

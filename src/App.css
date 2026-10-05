@@ -997,3 +997,49 @@ a {
 .site-footer {
   padding-bottom: 88px;
 }
+
+/* Logo */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.logo-mark {
+  display: block;
+  flex-shrink: 0;
+}
+
+.logo-word {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+/* FAQ */
+.faq-list {
+  display: grid;
+  gap: 0;
+}
+
+.faq-item {
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.faq-item:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.faq-item dt {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+.faq-item dd {
+  margin-top: 0.5rem;
+  max-width: 44rem;
+  color: var(--ink-soft);
+}
